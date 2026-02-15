@@ -1,0 +1,13 @@
+{
+  "name": "Aiqbee",
+  "version": "1.0.0",
+  "description": "Connect to Aiqbee's AI-powered knowledge graph. Search, create, and link neurons across your architecture, portfolio, and digital strategy brains.",
+  "mcpServers": {
+    "aiqbee": {
+      "httpUrl": "https://mcp.aiqbee.com/mcp",
+      "oauth": {
+        "enabled": true
+      }
+    }
+  }
+}

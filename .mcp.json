@@ -1,0 +1,6 @@
+{
+  "aiqbee": {
+    "type": "http",
+    "url": "https://mcp.aiqbee.com/mcp"
+  }
+}
