@@ -1,0 +1,43 @@
+{
+  "name": "aiqbee-marketplace",
+  "owner": {
+    "name": "Aiqbee",
+    "email": "hello@aiqbee.com"
+  },
+  "metadata": {
+    "description": "AI knowledge graph plugins for architecture, portfolio, and digital strategy management.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "aiqbee",
+      "source": "./",
+      "description": "Connect to Aiqbee's AI-powered knowledge graph. Search, create, and link neurons across your architecture, portfolio, and digital strategy brains.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Aiqbee"
+      },
+      "homepage": "https://app.aiqbee.com/help",
+      "repository": "https://github.com/AIQBee/aiqbee-ai",
+      "license": "MIT",
+      "keywords": [
+        "knowledge-graph",
+        "architecture-management",
+        "portfolio-management",
+        "digital-strategy",
+        "mcp-server",
+        "enterprise",
+        "ai-assistant",
+        "oauth"
+      ],
+      "category": "knowledge-management",
+      "tags": [
+        "knowledge-graph",
+        "mcp",
+        "enterprise",
+        "architecture",
+        "ai"
+      ]
+    }
+  ]
+}
