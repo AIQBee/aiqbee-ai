@@ -53,29 +53,62 @@ mcporter list aiqbee
 
 Aiqbee uses OAuth 2.0. On first connection, your browser will open for sign-in. No API keys or environment variables needed — just sign in with your existing Aiqbee account.
 
-## Available Tools (12)
+## Available Tools (25)
 
-### Read
+### Brain Discovery & Management
 
-| Tool | Description |
-|------|-------------|
-| `aiqbee_search` | Search neurons in your knowledge graph |
-| `aiqbee_fetch` | Get full neuron content and metadata |
-| `aiqbee_get_brain_info` | Get brain metadata and statistics |
-| `aiqbee_get_neuron_types` | List all neuron types with counts |
-| `aiqbee_list_neurons` | Paginated neuron listing with filtering |
-| `aiqbee_get_relationships` | Get incoming/outgoing relationships for a neuron |
+| Tool | Description | Permission |
+|------|-------------|------------|
+| `aiqbee_list_brains` | List all brains you have access to | Read |
+| `aiqbee_get_brain_info` | Get brain metadata and statistics | Read |
+| `aiqbee_edit_is_allowed` | Check if MCP editing is enabled for a brain | Read |
+| `aiqbee_list_brain_templates` | List available brain templates for brain creation | Read |
+| `aiqbee_create_brain` | Create a new brain (optionally from a template) | — |
+| `aiqbee_update_brain` | Update brain name, description, or settings | Owner |
+| `aiqbee_delete_brain` | Delete a brain permanently | Owner |
 
-### Write
+### Search & Retrieval
 
-| Tool | Description |
-|------|-------------|
-| `aiqbee_create_neuron` | Create a new neuron in your brain |
-| `aiqbee_update_neuron` | Update an existing neuron |
-| `aiqbee_delete_neuron` | Delete a neuron |
-| `aiqbee_create_relationship` | Create a link between two neurons |
-| `aiqbee_update_relationship` | Update an existing relationship |
-| `aiqbee_delete_relationship` | Remove a relationship |
+| Tool | Description | Permission |
+|------|-------------|------------|
+| `aiqbee_search` | Search neurons in your knowledge graph | Read |
+| `aiqbee_fetch` | Get full neuron content and metadata | Read |
+| `aiqbee_list_neurons` | Paginated neuron listing with filtering | Read |
+
+### Neuron Types
+
+| Tool | Description | Permission |
+|------|-------------|------------|
+| `aiqbee_list_neuron_types` | List all neuron types in a brain | Read |
+| `aiqbee_add_neuron_type` | Create a new neuron type | Owner |
+| `aiqbee_edit_neuron_type` | Update a neuron type's properties | Owner |
+| `aiqbee_delete_neuron_type` | Delete a neuron type (with optional neuron reassignment) | Owner |
+
+### Neurons
+
+| Tool | Description | Permission |
+|------|-------------|------------|
+| `aiqbee_create_neuron` | Create a new neuron in your brain | ReadWrite |
+| `aiqbee_update_neuron` | Update an existing neuron | ReadWrite |
+| `aiqbee_delete_neuron` | Delete a neuron | ReadWrite |
+
+### Relationships
+
+| Tool | Description | Permission |
+|------|-------------|------------|
+| `aiqbee_get_relationships` | Get incoming/outgoing relationships for a neuron | Read |
+| `aiqbee_create_relationship` | Create a link between two neurons | ReadWrite |
+| `aiqbee_update_relationship` | Update an existing relationship | ReadWrite |
+| `aiqbee_delete_relationship` | Remove a relationship | ReadWrite |
+
+### Access Control
+
+| Tool | Description | Permission |
+|------|-------------|------------|
+| `aiqbee_list_users` | List users with access to a brain | Read |
+| `aiqbee_grant_access` | Grant a user access to a brain | Owner |
+| `aiqbee_revoke_access` | Revoke a user's access to a brain | Owner |
+| `aiqbee_batch_update_access` | Replace all access permissions in one operation | Owner |
 
 ## Usage Examples
 
@@ -133,6 +166,45 @@ mcporter call 'aiqbee.aiqbee_get_neuron_types()'
 
 ```bash
 mcporter call 'aiqbee.aiqbee_get_brain_info()'
+```
+
+### List your brains
+
+"Show me all my brains"
+
+```bash
+mcporter call 'aiqbee.aiqbee_list_brains()'
+```
+
+### List brain templates
+
+"What brain templates are available?"
+
+```bash
+mcporter call 'aiqbee.aiqbee_list_brain_templates()'
+```
+
+### Create a brain
+
+"Create a new brain for our cloud migration project"
+
+```bash
+mcporter call 'aiqbee.aiqbee_create_brain(name: "Cloud Migration", description: "Architecture decisions for cloud migration")'
+```
+
+Create from a template (get template ID from `aiqbee_list_brain_templates` first):
+
+```bash
+mcporter call 'aiqbee.aiqbee_create_brain(name: "Cloud Migration", brain_template_id: "template-uuid-here")'
+```
+
+### Manage access
+
+"Who has access to this brain? Grant read access to alice@example.com"
+
+```bash
+mcporter call 'aiqbee.aiqbee_list_users()'
+mcporter call 'aiqbee.aiqbee_grant_access(email: "alice@example.com", access_level: "ReadWrite")'
 ```
 
 ## What is Aiqbee?
