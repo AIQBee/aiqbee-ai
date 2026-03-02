@@ -9,6 +9,7 @@ on:
       - '.mcp.json'
       - 'server.json'
       - 'gemini-extension.json'
+      - '.github/workflows/validate-plugin.yml'
   pull_request:
     paths:
       - '.claude-plugin/**'
@@ -17,6 +18,7 @@ on:
       - '.mcp.json'
       - 'server.json'
       - 'gemini-extension.json'
+      - '.github/workflows/validate-plugin.yml'
 
 jobs:
   validate:
@@ -49,4 +51,4 @@ jobs:
       - name: Validate server.json against MCP Registry schema
         run: |
           curl -sL "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json" -o /tmp/server.schema.json
-          ajv validate -s /tmp/server.schema.json -d server.json --spec=draft2020 -c ajv-formats
+          ajv validate -s /tmp/server.schema.json -d server.json --spec=draft7 -c ajv-formats

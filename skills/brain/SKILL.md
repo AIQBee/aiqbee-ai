@@ -93,9 +93,12 @@ Call `aiqbee_revoke_access(email, brain_id)`. Confirm the revocation was success
 
 Many commands accept a brain name or ID. To resolve a name to an ID:
 1. Call `aiqbee_list_brains()`
-2. Find a brain whose name matches (case-insensitive partial match is OK)
-3. If multiple brains match, show them and ask the user to pick one
-4. If no match, tell the user and show available brains
+2. Try an **exact** case-insensitive match first
+3. If no exact match, try a partial (substring) match
+4. If multiple brains match, **always** show the list and ask the user to pick one — never assume
+5. If no match, tell the user and show available brains
+
+**Destructive actions** (`delete`, `update`, `set`, `grant`, `revoke`): require an exact match or explicit user selection from the match list. Never auto-resolve a partial match for these commands.
 
 ## Endpoint context
 
