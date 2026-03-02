@@ -1,0 +1,27 @@
+name: Validate Claude Plugin
+
+on:
+  push:
+    paths:
+      - '.claude-plugin/**'
+      - 'skills/**'
+      - 'openclaw/**'
+      - '.mcp.json'
+  pull_request:
+    paths:
+      - '.claude-plugin/**'
+      - 'skills/**'
+      - 'openclaw/**'
+      - '.mcp.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate plugin
+        run: claude plugin validate .
