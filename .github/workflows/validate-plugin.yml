@@ -1,4 +1,4 @@
-name: Validate Claude Plugin
+name: Validate Plugin & Configs
 
 on:
   push:
@@ -7,12 +7,16 @@ on:
       - 'skills/**'
       - 'openclaw/**'
       - '.mcp.json'
+      - 'server.json'
+      - 'gemini-extension.json'
   pull_request:
     paths:
       - '.claude-plugin/**'
       - 'skills/**'
       - 'openclaw/**'
       - '.mcp.json'
+      - 'server.json'
+      - 'gemini-extension.json'
 
 jobs:
   validate:
@@ -20,8 +24,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Claude Code
-        run: npm install -g @anthropic-ai/claude-code
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
 
-      - name: Validate plugin
+      - name: Install tools
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          npm install -g ajv-cli ajv-formats
+
+      - name: Validate Claude plugin
         run: claude plugin validate .
+
+      - name: Validate JSON syntax
+        run: |
+          echo "Checking JSON syntax..."
+          for f in .mcp.json gemini-extension.json server.json .claude-plugin/plugin.json .claude-plugin/marketplace.json; do
+            if [ -f "$f" ]; then
+              node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" && echo "  ✓ $f" || { echo "  ✗ $f"; exit 1; }
+            fi
+          done
+
+      - name: Validate server.json against MCP Registry schema
+        run: |
+          curl -sL "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json" -o /tmp/server.schema.json
+          ajv validate -s /tmp/server.schema.json -d server.json --spec=draft2020 -c ajv-formats
