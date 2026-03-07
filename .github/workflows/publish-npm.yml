@@ -1,0 +1,34 @@
+name: Publish npm package
+
+on:
+  push:
+    paths:
+      - 'npm/**'
+      - '.github/workflows/publish-npm.yml'
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@aiqbee'
+
+      - name: Install dependencies
+        working-directory: npm
+        run: npm install
+
+      - name: Publish to npm
+        working-directory: npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
