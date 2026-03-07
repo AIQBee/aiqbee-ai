@@ -35,6 +35,7 @@ jobs:
         run: |
           npm install -g @anthropic-ai/claude-code
           npm install -g ajv-cli ajv-formats
+          npm install -g @anthropic-ai/smithery-cli || npm install -g @smithery/cli
 
       - name: Validate Claude plugin
         run: claude plugin validate .
@@ -52,3 +53,10 @@ jobs:
         run: |
           curl -fsSL "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json" -o /tmp/server.schema.json
           ajv validate -s /tmp/server.schema.json -d server.json --spec=draft7 -c ajv-formats --strict=false
+
+      - name: Publish to Smithery
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          SMITHERY_API_KEY: ${{ secrets.SMITHERY_API_KEY }}
+        run: |
+          smithery mcp publish "https://mcp.aiqbee.com/mcp" -n aiqbee/aiqbee-ai

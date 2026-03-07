@@ -1,0 +1,32 @@
+{
+  "name": "@aiqbee/mcp",
+  "version": "1.0.1",
+  "description": "AI knowledge graph MCP server for architecture, portfolio, and digital strategy management",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "aiqbee",
+    "knowledge-graph",
+    "ai",
+    "architecture",
+    "portfolio"
+  ],
+  "homepage": "https://github.com/AIQBee/aiqbee-ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AIQBee/aiqbee-ai.git",
+    "directory": "npm"
+  },
+  "license": "MIT",
+  "author": "AIQBee <support@aiqbee.com>",
+  "type": "module",
+  "bin": {
+    "aiqbee-mcp": "bin.mjs"
+  },
+  "dependencies": {
+    "mcp-remote": "^0.1.38"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

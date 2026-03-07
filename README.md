@@ -17,6 +17,7 @@ Search, create, and link knowledge across your architecture, portfolio, and digi
 | **Gemini CLI** | Extension | `gemini extensions install https://github.com/AIQBee/aiqbee-ai` |
 | **ChatGPT** | MCP Config | [JSON config below](#other-mcp-clients) |
 | **Windsurf** | MCP Config | [JSON config below](#other-mcp-clients) |
+| **Any stdio client** | npx | `npx -y @aiqbee/mcp` |
 
 ---
 
@@ -78,6 +79,21 @@ Add to your `settings.json`:
         "type": "sse",
         "url": "https://mcp.aiqbee.com/mcp"
       }
+    }
+  }
+}
+```
+
+### npx (stdio clients)
+
+For MCP clients that only support stdio transport:
+
+```json
+{
+  "mcpServers": {
+    "aiqbee": {
+      "command": "npx",
+      "args": ["-y", "@aiqbee/mcp"]
     }
   }
 }
@@ -197,6 +213,8 @@ Once connected, try asking your AI assistant:
 
 - **Platform**: https://app.aiqbee.com
 - **Documentation**: https://app.aiqbee.com/help
+- **Privacy & Trust**: https://app.aiqbee.com/trust
+- **Support**: https://app.aiqbee.com/help
 - **MCP Server**: https://mcp.aiqbee.com/mcp
 
 ---
